@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Priority Queue - PotholePatrol</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-container": "#4a2c00",
+              "outline": "#6d758c",
+              "error-container": "#9f0519",
+              "surface": "#060e20",
+              "on-primary-container": "#004132",
+              "tertiary-container": "#f8a010",
+              "primary-fixed": "#49f4c8",
+              "surface-container-lowest": "#000000",
+              "surface-container-low": "#091328",
+              "primary-dim": "#33e5ba",
+              "on-secondary-fixed-variant": "#4e5c71",
+              "tertiary-fixed-dim": "#e79400",
+              "tertiary-dim": "#e79400",
+              "secondary-fixed": "#d5e3fd",
+              "tertiary": "#ffb148",
+              "on-background": "#dee5ff",
+              "secondary-container": "#3a485c",
+              "error": "#ff716c",
+              "primary": "#49f4c8",
+              "surface-dim": "#060e20",
+              "on-primary": "#005745",
+              "background": "#060e20",
+              "primary-container": "#00d4aa",
+              "surface-container-high": "#141f38",
+              "on-primary-fixed-variant": "#00624d",
+              "on-secondary": "#455367",
+              "inverse-surface": "#faf8ff",
+              "on-surface": "#dee5ff",
+              "primary-fixed-dim": "#33e5ba",
+              "on-error": "#490006",
+              "on-tertiary-fixed-variant": "#563400",
+              "surface-bright": "#1f2b49",
+              "secondary": "#d5e3fd",
+              "surface-container-highest": "#192540",
+              "secondary-fixed-dim": "#c7d5ee",
+              "surface-variant": "#192540",
+              "on-tertiary-fixed": "#2a1700",
+              "on-secondary-fixed": "#324054",
+              "on-error-container": "#ffa8a3",
+              "on-tertiary": "#573500",
+              "on-surface-variant": "#a3aac4",
+              "inverse-primary": "#006c55",
+              "on-primary-fixed": "#004334",
+              "secondary-dim": "#c7d5ee",
+              "outline-variant": "#40485d",
+              "on-secondary-container": "#c3d1ea",
+              "surface-tint": "#49f4c8",
+              "error-dim": "#d7383b",
+              "surface-container": "#0f1930",
+              "tertiary-fixed": "#f8a010",
+              "inverse-on-surface": "#4d556b"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #060e20;
+      }
+      .btn-pulse:active {
+        transform: scale(0.96);
+      }
+      .dispatch-gradient {
+        background: linear-gradient(135deg, #49f4c8 0%, #00d4aa 100%);
+      }
+    </style>
+</head>
+<body class="font-body text-on-surface selection:bg-primary selection:text-on-primary min-h-screen pb-24">
+<!-- TopAppBar (Updated to match SCREEN_10) -->
+<header class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.3)] flex justify-between items-center px-6 h-16">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#49f4c8]" data-icon="location_city">location_city</span>
+<h1 class="text-xl font-extrabold tracking-tighter text-[#49f4c8] uppercase font-headline">PotholePatrol</h1>
+</div>
+<button class="text-slate-400 hover:text-[#49f4c8] transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="pt-20 px-4 max-w-md mx-auto">
+<!-- Page Title & Real-time Sync Indicator -->
+<div class="flex flex-col gap-1 mb-6">
+<div class="flex items-center justify-between">
+<h1 class="text-headline-sm font-medium tracking-tight text-on-surface">Priority Queue</h1>
+<div class="flex items-center gap-2 bg-surface-container-high/60 backdrop-blur px-3 py-1.5 rounded-full border border-outline-variant/30">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface">Last Sync: 5s ago</span>
+</div>
+</div>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest">+12 Events Active</p>
+</div>
+<!-- Vertical List of Damage Events -->
+<div class="flex flex-col gap-4">
+<!-- CRITICAL ITEM -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-highest shadow-2xl border-l-4 border-error">
+<div class="absolute top-0 right-0 p-3">
+<span class="bg-error/10 text-error text-[10px] font-black px-2 py-0.5 rounded-sm uppercase tracking-tighter border border-error/20">Critical</span>
+</div>
+<div class="p-5 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Location</span>
+<h2 class="text-xl font-bold tracking-tight text-white">Baner Road, Junction 4</h2>
+</div>
+<div class="bg-error-container text-white px-3 py-2 rounded-lg flex flex-col items-center shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+<span class="text-[10px] font-bold leading-none">SEV</span>
+<span class="text-lg font-black leading-none">5</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="near_me">near_me</span>
+<span class="text-body-md font-medium text-on-surface">0.4 km</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="schedule">schedule</span>
+<span class="text-body-md font-medium text-on-surface">2m wait</span>
+</div>
+</div>
+<button class="w-full dispatch-gradient text-on-primary font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all hover:brightness-110 active:scale-[0.98] shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined font-variation-settings-'FILL' 1" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
+                    DISPATCH NOW
+                </button>
+</div>
+<div class="h-1.5 w-full bg-surface-container-low">
+<div class="h-full bg-error w-4/5 animate-[pulse_2s_infinite]"></div>
+</div>
+</div>
+<!-- Standard Priority Item 1 -->
+<div class="rounded-xl bg-surface-container-low border border-outline-variant/10 hover:bg-surface-container transition-colors group">
+<div class="p-4 flex items-center gap-4">
+<div class="bg-tertiary-container text-on-tertiary-container w-14 h-14 rounded-lg flex flex-col items-center justify-center shrink-0 border border-tertiary/20">
+<span class="text-[9px] font-bold uppercase">SEV</span>
+<span class="text-xl font-black">4</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-on-surface truncate">Aundh Link Rd</h3>
+<span class="text-[10px] text-on-surface-variant font-medium">1.2 km</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-label-sm text-tertiary font-bold tracking-widest uppercase">High Impact</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-label-sm text-on-surface-variant">Reported 12m ago</span>
+</div>
+</div>
+<button class="bg-primary/10 text-primary border border-primary/30 p-3 rounded-xl transition-all hover:bg-primary hover:text-on-primary active:scale-90">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</button>
+</div>
+</div>
+<!-- Standard Priority Item 2 -->
+<div class="rounded-xl bg-surface-container-low border border-outline-variant/10 hover:bg-surface-container transition-colors group">
+<div class="p-4 flex items-center gap-4">
+<div class="bg-tertiary-container/40 text-tertiary w-14 h-14 rounded-lg flex flex-col items-center justify-center shrink-0 border border-tertiary/10">
+<span class="text-[9px] font-bold uppercase">SEV</span>
+<span class="text-xl font-black">4</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-on-surface truncate">Viman Nagar Expy</h3>
+<span class="text-[10px] text-on-surface-variant font-medium">2.8 km</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-label-sm text-tertiary font-bold tracking-widest uppercase">Pending</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-label-sm text-on-surface-variant">Reported 45m ago</span>
+</div>
+</div>
+<button class="bg-primary/10 text-primary border border-primary/30 p-3 rounded-xl transition-all hover:bg-primary hover:text-on-primary active:scale-90">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</button>
+</div>
+</div>
+<!-- Standard Priority Item 3 -->
+<div class="rounded-xl bg-surface-container-low border border-outline-variant/10 opacity-80 hover:bg-surface-container transition-colors group">
+<div class="p-4 flex items-center gap-4">
+<div class="bg-outline-variant/20 text-on-surface-variant w-14 h-14 rounded-lg flex flex-col items-center justify-center shrink-0">
+<span class="text-[9px] font-bold uppercase">SEV</span>
+<span class="text-xl font-black">3</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-on-surface truncate">Balewadi High St</h3>
+<span class="text-[10px] text-on-surface-variant font-medium">4.1 km</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-label-sm text-on-surface-variant font-bold tracking-widest uppercase">Moderate</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-label-sm text-on-surface-variant">Reported 1h ago</span>
+</div>
+</div>
+<button class="bg-primary/10 text-primary border border-primary/30 p-3 rounded-xl transition-all hover:bg-primary hover:text-on-primary active:scale-90">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</button>
+</div>
+</div>
+<!-- Asymmetric Data Visualization Component -->
+<div class="mt-4 grid grid-cols-2 gap-4">
+<div class="bg-surface-container p-4 rounded-xl flex flex-col justify-between h-32 border border-outline-variant/10">
+<span class="text-label-sm text-on-surface-variant uppercase tracking-widest">Efficiency</span>
+<div class="flex flex-col">
+<span class="text-3xl font-black text-primary">94%</span>
+<span class="text-[10px] text-on-surface-variant">Avg Resolution Rate</span>
+</div>
+</div>
+<div class="bg-surface-container-high p-4 rounded-xl flex flex-col justify-between h-32 border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary self-end animate-pulse" data-icon="query_stats">query_stats</span>
+<div class="flex flex-col">
+<span class="text-3xl font-black text-white">2.4m</span>
+<span class="text-[10px] text-on-surface-variant">Mean Dispatch Time</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Matching SCREEN_10 active style) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-4 pb-safe border-t border-slate-800/30 bg-slate-950/95 backdrop-blur-xl z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-300 transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-widest mt-1">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-teal-500/10 text-teal-400 rounded-2xl px-5 py-2 shadow-[0_0_15px_rgba(73,244,200,0.2)] active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted" style="font-variation-settings: 'FILL' 1;">format_list_bulleted</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-widest mt-1">Queue</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-300 transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-widest mt-1">Settings</span>
+</a>
+</nav>
+</body></html>
