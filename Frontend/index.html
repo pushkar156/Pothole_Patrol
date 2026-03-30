@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Dashboard | PotholePatrol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="app-bar">
+        <a href="index.html" class="app-logo">
+            <span class="material-symbols-outlined">location_city</span>
+            <h1>PotholePatrol</h1>
+        </a>
+        <button class="nav-icon-btn">
+            <span class="material-symbols-outlined">notifications</span>
+        </button>
+    </header>
+
+    <main class="container" style="margin-top: 84px;">
+        <!-- Stats Row -->
+        <section class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
+            <div class="card-low" style="padding: 12px; border-radius: 12px; border-left: 2px solid var(--primary);">
+                <p class="label-sm" style="color: var(--on-surface-variant); margin-bottom: 4px;">Detected</p>
+                <h2 class="display-lg" style="font-size: 1.5rem; color: var(--primary);">234</h2>
+            </div>
+            <div class="card-low" style="padding: 12px; border-radius: 12px; border-left: 2px solid var(--tertiary);">
+                <p class="label-sm" style="color: var(--on-surface-variant); margin-bottom: 4px;">Pending</p>
+                <h2 class="display-lg" style="font-size: 1.5rem; color: var(--tertiary);">1,847</h2>
+            </div>
+            <div class="card-low" style="padding: 12px; border-radius: 12px; border-left: 2px solid var(--error);">
+                <p class="label-sm" style="color: var(--on-surface-variant); margin-bottom: 4px;">Critical</p>
+                <h2 class="display-lg" style="font-size: 1.5rem; color: var(--error);">23</h2>
+            </div>
+        </section>
+
+        <!-- Command Map Preview -->
+        <a href="map.html" class="card-high" style="display: block; position: relative; height: 350px; overflow: hidden; text-decoration: none; margin-bottom: 24px;">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD42xG5Glx3N4qAHko__hGyvfzOWsNkFxGjnNsI65XwBKSYZurnlEXP7OVCoATTzUC0Cbno8gMMzImDfQBjH6-DWQhYPvzs34U2ZgCgE-C5usoEEIy7xMPMrB1_UEQQoDQ4RKzI7dLIzE2v1GUhUbtATS8UB9M4rmZa5c5WfLQQVfE0DmTNlFNRvjHVGLE6wwX5iuz9FDltMNDD403nkJsP7Y7lvWWHu7Sh7K92I0kOXrWb2Xn3O_Ls6YWMt-Ex236LTN88Fuhm8HOX" 
+                 alt="Infrastructure Map" 
+                 style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5;">
+            
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,14,32,0.9) 0%, transparent 60%);"></div>
+            
+            <div style="position: absolute; top: 16px; left: 16px;">
+                <div class="status-chip chip-success" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(73,244,200,0.3);">
+                    <span class="animate-pulse" style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%; display: inline-block; margin-right: 8px;"></span>
+                    LIVE NETWORK STREAM
+                </div>
+            </div>
+            
+            <div style="position: absolute; bottom: 24px; width: 100%; text-align: center;">
+                <span class="material-symbols-outlined animate-pulse" style="color: var(--primary);">expand_less</span>
+                <p class="label-sm" style="color: var(--on-surface-variant);">Tap to Expand Map</p>
+            </div>
+        </a>
+
+        <!-- Priority Queue Preview -->
+        <section>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="label-sm" style="color: var(--on-surface-variant);">Priority Queue</h2>
+                <a href="queue.html" class="label-sm" style="color: var(--primary); text-decoration: none;">View All</a>
+            </div>
+            <div class="grid gap-4">
+                <div class="card flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <div class="status-chip chip-critical" style="height: 48px; width: 48px; flex-direction: column; justify-content: center; border-radius: 8px;">
+                            <span style="font-size: 8px;">SEV</span>
+                            <span style="font-size: 1.25rem;">5</span>
+                        </div>
+                        <div>
+                            <h3 style="font-weight: 700;">FC Road</h3>
+                            <p class="label-sm" style="color: var(--on-surface-variant); text-transform: none;">11 sightings detected</p>
+                        </div>
+                    </div>
+                    <button class="btn-primary dispatch-btn">Dispatch</button>
+                </div>
+
+                <div class="card card-low flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <div class="status-chip chip-critical" style="height: 48px; width: 48px; flex-direction: column; justify-content: center; border-radius: 8px;">
+                            <span style="font-size: 8px;">SEV</span>
+                            <span style="font-size: 1.25rem;">5</span>
+                        </div>
+                        <div>
+                            <h3 style="font-weight: 700;">Baner Road</h3>
+                            <p class="label-sm" style="color: var(--on-surface-variant); text-transform: none;">9 sightings detected</p>
+                        </div>
+                    </div>
+                    <button class="btn-primary dispatch-btn">Dispatch</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <span class="material-symbols-outlined">map</span>
+            Map
+        </a>
+        <a href="queue.html" class="nav-item">
+            <span class="material-symbols-outlined">list_alt</span>
+            Queue
+        </a>
+        <a href="settings.html" class="nav-item">
+            <span class="material-symbols-outlined">settings</span>
+            Settings
+        </a>
+    </nav>
+</body>
+</html>

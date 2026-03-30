@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Dispatch Confirmation | PotholePatrol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        .pulse-pin {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pulse-ring {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            animation: ring-pulse 1.5s ease-out infinite;
+        }
+        @keyframes ring-pulse {
+            0% { transform: scale(0.3); opacity: 0.8; }
+            100% { transform: scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-bar">
+        <div class="app-logo">
+            <span class="material-symbols-outlined">location_city</span>
+            <h1>PotholePatrol</h1>
+        </div>
+        <button class="nav-icon-btn" onclick="window.location.href='queue.html'">
+            <span class="material-symbols-outlined" style="color: var(--on-surface-variant);">close</span>
+        </button>
+    </header>
+
+    <main style="margin-top: 64px;">
+        <!-- Track View -->
+        <section style="position: relative; height: 260px; overflow: hidden;">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo0sTkbnxqzMLHDhLPeAT-QHp1Do7mhVtwN0EGv_jnU_C88ejgD12_SbhdloHTOIZ9XnqEV-Jj6qw8sTExYv1HyMx0tY4lvg2ximMGNj_PE9WBMaPHthpd2Yp6v6XMOLLLK7e-w8WdiZgVsvXbanlQUH8I1B5RhbH08vcCRAke1CeEih_nBUlvyoiLz85LvKSsX9aWr4us93lphX-J9GQ4GYPaEqZo9Ty4kJKaBb280v9nal5MzFtwJ7KKAdZMsT5jkYZLnDcFKHIB" 
+                 style="width: 100%; height: 100%; object-fit: cover; opacity: 0.4; filter: grayscale(1) invert(0.8) contrast(1.2);">
+            
+            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+                <!-- Pulse Indicator for Team position -->
+                <div class="pulse-pin" style="top: 25%; left: 33%;">
+                    <div class="pulse-ring"></div>
+                </div>
+                <!-- Target position -->
+                <div style="position: absolute; bottom: 33%; right: 25%;">
+                    <span class="material-symbols-outlined animate-pulse" style="color: var(--error); font-size: 32px; font-variation-settings: 'FILL' 1;">location_on</span>
+                </div>
+            </div>
+
+            <div style="position: absolute; bottom: 0; width: 100%; height: 80px; background: linear-gradient(to top, var(--surface) 0%, transparent 100%);"></div>
+            
+            <div style="position: absolute; top: 16px; left: 16px;">
+                <div class="status-chip chip-success" style="background: rgba(6,14,32,0.8); backdrop-filter: blur(8px); border: 1px solid var(--outline-variant);">
+                    <span class="animate-pulse" style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%; margin-right: 8px;"></span>
+                    TRACKING DISPATCH...
+                </div>
+            </div>
+        </section>
+
+        <!-- Dispatch Content -->
+        <div class="container" style="margin-top: -32px; position: relative; z-index: 10;">
+            <div style="margin-bottom: 32px;">
+                <span class="status-chip chip-success" style="background: rgba(73,244,200,0.1); border-radius: 4px; padding: 4px 8px;">ACTION REQUIRED</span>
+                <h2 class="headline-sm" style="margin-top: 12px;">Confirming Dispatch to FC Road</h2>
+                <p style="font-size: 14px; opacity: 0.7;">Infrastructure Maintenance Division</p>
+            </div>
+
+            <div class="grid gap-4">
+                <div class="card card-high" style="border-left: 4px solid var(--primary); display: flex; justify-content: space-between; align-items: start;">
+                    <div>
+                        <p class="label-sm" style="color: var(--on-surface-variant); margin-bottom: 4px;">Work Order #</p>
+                        <h2 style="font-size: 1.5rem; font-weight: 800; color: white;">PP-18423</h2>
+                    </div>
+                    <span class="material-symbols-outlined" style="color: var(--primary); opacity: 0.4;">assignment</span>
+                </div>
+
+                <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="card card-high">
+                        <p class="label-sm" style="color: var(--on-surface-variant); margin-bottom: 8px;">Team</p>
+                        <div class="flex items-center gap-2">
+                            <div style="width: 32px; height: 32px; background: var(--primary); color: var(--on-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800;">A</div>
+                            <span style="font-size: 14px; font-weight: 600;">Team Alpha</span>
+                        </div>
+                    </div>
+                    <div class="card card-high">
+                        <p class="label-sm" style="color: var(--on-surface-variant); margin-bottom: 8px;">ETA</p>
+                        <h2 class="animate-pulse" style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">14m</h2>
+                    </div>
+                </div>
+
+                <div class="card flex items-center gap-4">
+                    <div style="width: 40px; height: 40px; background: var(--surface-container-highest); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                        <span class="material-symbols-outlined" style="color: var(--tertiary);">warning</span>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 14px; font-weight: 700;">Pothole Alert: Severity High</h3>
+                        <p class="label-sm" style="text-transform: none; color: var(--on-surface-variant);">Near Fergusson College Main Gate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="position: fixed; bottom: 0; width: 100%; padding: 24px; background: rgba(6,14,32,0.95); backdrop-filter: blur(20px); border-top: 1px solid var(--outline-variant);">
+        <button class="btn-primary" style="width: 100%; padding: 20px; font-size: 1rem; border-radius: 16px;">
+            CONFIRM DISPATCH
+        </button>
+        <button class="btn-secondary" style="width: 100%; margin-top: 16px; border: none; font-size: 12px; font-weight: 700;">
+            CANCEL OPERATION
+        </button>
+    </footer>
+</body>
+</html>
