@@ -1,0 +1,263 @@
+/* 
+ * PotholePatrol: Kinetic Command Center
+ * Core Stylesheet (Design System v1.0)
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+    /* Color Palette - Tonal Architecture */
+    --primary: #49f4c8;
+    --primary-container: #00d4aa;
+    --on-primary: #005745;
+    
+    --surface: #060e20;
+    --surface-bright: #1f2b49;
+    --surface-dim: #060e20;
+    
+    --surface-container-lowest: #000000;
+    --surface-container-low: #091328;
+    --surface-container: #0f1930;
+    --surface-container-high: #141f38;
+    --surface-container-highest: #192540;
+    
+    --on-surface: #dee5ff;
+    --on-surface-variant: #a3aac4;
+    
+    --error: #ff716c;
+    --error-container: #9f0519;
+    --on-error: #490006;
+    
+    --tertiary: #ffb148;
+    --tertiary-container: #f8a010;
+    
+    --outline: #6d758c;
+    --outline-variant: rgba(109, 117, 140, 0.15);
+
+    /* Typography Scales */
+    --font-main: 'Inter', sans-serif;
+    
+    --display-lg: 3.5rem;
+    --headline-sm: 1.5rem;
+    --body-md: 0.875rem;
+    --label-sm: 0.6875rem;
+
+    /* Spacing & Radii */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+}
+
+/* Global Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--surface);
+    color: var(--on-surface);
+    font-family: var(--font-main);
+    line-height: 1.5;
+    overflow-x: hidden;
+    min-height: 100dvh;
+    padding-bottom: 80px; /* Space for bottom nav */
+}
+
+/* Typography Implementation */
+h1, h2, h3, .headline {
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.display-lg {
+    font-size: var(--display-lg);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.headline-sm {
+    font-size: var(--headline-sm);
+    font-weight: 500;
+}
+
+.label-sm {
+    font-size: var(--label-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+/* Layout Utilities (Minimal Set for Flexibility) */
+.container { padding: 0 16px; }
+.flex { display: flex; }
+.grid { display: grid; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 8px; }
+.gap-4 { gap: 16px; }
+.w-full { width: 100%; }
+.mt-4 { margin-top: 16px; }
+.mb-4 { margin-bottom: 16px; }
+
+/* Components - Kinetic Command Center */
+
+/* App Bar (Header) */
+header.app-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background: rgba(6, 14, 32, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.app-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.app-logo span { font-size: 24px; }
+.app-logo h1 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+}
+
+/* Bottom Navigation */
+nav.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: rgba(6, 14, 32, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--outline-variant);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 12px;
+    z-index: 100;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--on-surface-variant);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+}
+
+.nav-item.active {
+    color: var(--primary);
+}
+
+.nav-item span {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.nav-item:active { transform: scale(0.9); }
+
+/* Cards */
+.card {
+    background-color: var(--surface-container);
+    border-radius: var(--radius-xl);
+    padding: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.card-low { background-color: var(--surface-container-low); }
+.card-high { background-color: var(--surface-container-high); }
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 100%);
+    color: var(--on-primary);
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 15px rgba(73, 244, 200, 0.2);
+}
+
+.btn-primary:active { transform: scale(0.96); }
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid rgba(73, 244, 200, 0.3);
+    color: var(--primary);
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Status Chips */
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.chip-critical {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.2);
+}
+
+.chip-success {
+    background: rgba(73, 244, 200, 0.1);
+    color: var(--primary);
+}
+
+/* Glow Effects */
+.glow-primary { box-shadow: 0 0 20px rgba(73, 244, 200, 0.2); }
+.glow-error { box-shadow: 0 0 20px rgba(255, 113, 108, 0.2); }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb {
+    background: var(--surface-container-highest);
+    border-radius: 10px;
+}
+
+/* Animations */
+@keyframes pulse-light {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.95); }
+}
+
+.animate-pulse { animation: pulse-light 2s infinite; }
