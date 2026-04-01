@@ -219,4 +219,3 @@ MIT World Peace University, Pune
 <div align="center">
   <strong>PotholePatrol · Smart Cities </strong><br/>
   <em>Detect. Prioritize. Dispatch. Repeat.</em>
-</div>#Pothole Patrol
